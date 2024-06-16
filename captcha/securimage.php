@@ -470,6 +470,7 @@ class Securimage_Captcha_ctf {
 	 */
 	function check($code)
 	{
+		error_log("Cheeck");
 		$this->code_entered = $code;
 		$this->validate();
 		return $this->correct_code;
@@ -728,7 +729,7 @@ class Securimage_Captcha_ctf {
 						}
 					}
 					 
-					$ch = $this->code{$i};
+					$ch = $this->code[$i];
 					 
 					imagettftext($this->tmpimg, $font_size, $angle, $x, $y, $font_color, $this->ttf_file, $ch);
 					 
@@ -930,11 +931,14 @@ class Securimage_Captcha_ctf {
 	 */
 	function validate()
 	{
+		error_log("validate....");
 		if ( isset($_SESSION['securimage_code_ctf_'.$this->form_num]) && !empty($_SESSION['securimage_code_ctf_'.$this->form_num]) ) {
 			if ( strtolower($_SESSION['securimage_code_ctf_'.$this->form_num]) == strtolower(trim($this->code_entered)) ) {
+				error_log("Session valid...");
 				$this->correct_code = true;
 				$_SESSION['securimage_code_ctf_'.$this->form_num] = '';  // clear code to prevent session re-use
 			} else {
+				error_log("Session invalid...");
 				$this->correct_code = false;
 			}
 		} else {

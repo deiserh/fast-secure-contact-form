@@ -886,7 +886,7 @@ $('head').append(fscf_css);
 		   return trim(self::sanitize_string(strip_tags(stripslashes($string))));
 		} elseif ( is_array($string) ) {
 		  reset($string);
-		  while (list($key, $value) = each($string)) {
+		  foreach ($string as $key =>$value) {
 			$string[$key] = self::clean_input($value,$preserve_space);
 		  }
 		  return $string;
